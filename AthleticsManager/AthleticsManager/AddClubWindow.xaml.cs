@@ -45,7 +45,7 @@ namespace AthleticsManager
 
             addAthleteWindow.NewClubAdded(club);
 
-            this.DialogResult = true;
+            DialogResult = true;
         }
     }
 }

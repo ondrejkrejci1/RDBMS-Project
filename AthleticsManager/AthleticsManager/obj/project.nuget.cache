@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "usJGyoN93EA=",
+  "dgSpecHash": "ZAqsHWA/52Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\42060\\Documents\\Programing\\PV\\Ctvrtak\\PROJEKTY\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
+  "projectFilePath": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\42060\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\42060\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

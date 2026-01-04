@@ -139,5 +139,63 @@ namespace AthleticsManager.Repositories
             return newAthlete;
         }
 
+        public void Update(string firstName, string lastName, DateTime? birthDate, string gender, int athleteID)
+        {
+            string query = "UPDATE ATHLETE SET";
+            
+            if (firstName != null)
+            {
+                query += " FirstName = @FirstName";
+            }
+            if (lastName != null)
+            {
+                if (firstName != null)
+                {
+                    query += ",";
+                }
+                query += " LastName = @LastName";
+            }
+            if (birthDate != null)
+            {
+                if (firstName != null || lastName != null)
+                {
+                    query += ",";
+                }
+                query += " BirthDate = @BirthDate";
+            }
+            if (gender != null)
+            {
+                if (firstName != null || lastName != null || birthDate != null)
+                {
+                    query += ",";
+                }
+                query += " Gender = @Gender";
+            }
+            query += " WHERE AthleteID = " + athleteID;
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+                if(firstName != null)
+                {
+                    command.Parameters.AddWithValue("@FirstName", firstName);
+                }
+                if (lastName != null)
+                {
+                    command.Parameters.AddWithValue("@LastName", lastName);
+                }
+                if (birthDate != null)
+                {
+                    command.Parameters.AddWithValue("@BirthDate", birthDate);
+                }
+                if (gender != null)
+                {
+                    command.Parameters.AddWithValue("@Gender", gender);
+                }
+
+                command.ExecuteNonQuery();
+            }
+
+
+        }
+
     }
 }
