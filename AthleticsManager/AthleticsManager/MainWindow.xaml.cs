@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using AthleticsManager.Models;
 using AthleticsManager.Repositories;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace AthleticsManager
 {
@@ -13,23 +14,32 @@ namespace AthleticsManager
     public partial class MainWindow : Window
     {
         private AthleteRepository athleteRepository;
+        private ClubRepositary clubRepositary;
         private CompetitionRepositary competitionRepositary;
         private DisciplineRepositary disciplineRepositary;
         private ResultRepositary resultRepositary;
+
+        private Competition nearestCompetition;
+        private List<Competition> allCompetitions;
+
+        private List<Club> allClubsDisplayList;
+        private Club topClub;
 
         public MainWindow()
         {
             InitializeComponent();
             athleteRepository = new AthleteRepository();
+            clubRepositary = new ClubRepositary();
             competitionRepositary = new CompetitionRepositary();
             disciplineRepositary = new DisciplineRepositary();
             resultRepositary = new ResultRepositary();
+            allCompetitions = new List<Competition>();
         }
 
         /// <summary>
         /// Handles the navigation logic for the sidebar menu.
         /// </summary>
-        private void MenuButton_Click(object sender, RoutedEventArgs e)
+        private void MenuButtonClick(object sender, RoutedEventArgs e)
         {
             Button clickedButton = sender as Button;
 
@@ -53,17 +63,19 @@ namespace AthleticsManager
                 case "Competitions":
                     TxtPageTitle.Text = "Competitions";
                     ViewCompetitions.Visibility = Visibility.Visible;
+                    LoadCompetitionsData();
                     break;
 
                 case "Results":
                     TxtPageTitle.Text = "Add New Result";
-                    ViewResults.Visibility = Visibility.Visible;
+                    ViewNewResult.Visibility = Visibility.Visible;
                     LoadComboboxData();
                     break;
 
                 case "Clubs":
                     TxtPageTitle.Text = "Clubs Registry";
                     ViewClubs.Visibility = Visibility.Visible;
+                    LoadClubsData();
                     break;
             }
         }
@@ -77,7 +89,7 @@ namespace AthleticsManager
             ViewDashboard.Visibility = Visibility.Collapsed;
             ViewAthletes.Visibility = Visibility.Collapsed;
             ViewCompetitions.Visibility = Visibility.Collapsed;
-            ViewResults.Visibility = Visibility.Collapsed;
+            ViewNewResult.Visibility = Visibility.Collapsed;
             ViewClubs.Visibility = Visibility.Collapsed;
         }
 
@@ -89,7 +101,29 @@ namespace AthleticsManager
                 var athletes = athleteRepository.GetAll();
                 if(athletes != null)
                 {
-                    DgAthletes.ItemsSource = athletes;
+                    var displayList = athletes.Select(a =>
+                    {
+                        // ZDE VOLÁME VAŠI METODU:
+                        Club foundClub = clubRepositary.GetById(a.ClubID);
+                        string ClubName = "Unknown Club";
+                        if (foundClub != null)
+                        {
+                            ClubName = foundClub.Name;
+                        }
+                        
+
+                        return new
+                        {
+                            a.FirstName,
+                            a.LastName,
+                            BirthDate = a.BirthDate,
+                            a.Gender,
+                            ClubName,
+                            a.AthleteID
+                        };
+                    }).ToList();
+
+                    DgAthletes.ItemsSource = displayList;
                 }
             }
             catch (Exception ex)
@@ -148,6 +182,106 @@ namespace AthleticsManager
 
                 CmbResDiscipline.Items.Add(comboBoxItem);
             }
+        }
+
+        private void LoadCompetitionsData()
+        {
+            allCompetitions = competitionRepositary.GetAll();
+
+            nearestCompetition = allCompetitions
+                .Where(c => c.Date >= DateTime.Today)
+                .OrderBy(c => c.Date)
+                .FirstOrDefault();
+
+            if (nearestCompetition != null)
+            {
+                TxtNextRaceName.Text = nearestCompetition.Name;
+                TxtNextRaceDate.Text = $"{nearestCompetition.Date.ToShortDateString()} in {nearestCompetition.Venue}";
+                BtnOpenNextRace.IsEnabled = true;
+            }
+            else
+            {
+                TxtNextRaceName.Text = "No upcoming races";
+                TxtNextRaceDate.Text = "";
+                BtnOpenNextRace.IsEnabled = false;
+            }
+
+            RefreshCompetitionGrid();
+        }
+
+        private void RefreshCompetitionGrid()
+        {
+            string filter = TxtCompSearch.Text?.ToLower() ?? "";
+
+            var filteredList = allCompetitions
+                .Where(c => c.Name.ToLower().Contains(filter) || c.Venue.ToLower().Contains(filter))
+                .ToList();
+
+            DgCompetitions.ItemsSource = filteredList;
+        }
+
+        private void LoadClubsData()
+        {
+            try
+            {
+                // 1. Získání kompletního seznamu pomocí naší metody
+                var allClubsDisplayList = GetClubListWithRegions();
+
+                // 2. NAJÍT NEJVĚTŠÍ KLUB (Top Club Logic)
+                var topClubData = allClubsDisplayList.OrderByDescending(x => x.AthleteCount).FirstOrDefault();
+
+                if (topClubData != null)
+                {
+                    // Pozor: topClubData je dynamic, musíme přetypovat nebo použít property
+                    // Předpokládám, že 'topClub' je globální proměnná typu Club
+                    topClub = topClubData.OriginalClubObject;
+
+                    TxtTopClubName.Text = topClubData.Name;
+                    TxtTopClubCount.Text = topClubData.AthleteCount.ToString();
+                    BtnOpenTopClub.IsEnabled = true;
+                }
+                else
+                {
+                    TxtTopClubName.Text = "No clubs found";
+                    TxtTopClubCount.Text = "0";
+                    BtnOpenTopClub.IsEnabled = false;
+                }
+
+                // 3. Zobrazit v tabulce (pošleme tam celý seznam)
+                RefreshClubsGrid(allClubsDisplayList);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading clubs: " + ex.Message);
+            }
+        }
+        private void RefreshClubsGrid(List<dynamic> listToDisplay)
+        {
+            DgClubs.ItemsSource = listToDisplay;
+        }
+
+        private List<dynamic> GetClubListWithRegions()
+        {
+            var regionRepo = new RegionRepositary();
+
+            var clubs = clubRepositary.GetAll();
+            var athletes = athleteRepository.GetAll();
+            var regions = regionRepo.GetAll();
+
+            var displayList = clubs.Select(c => new
+            {
+                c.ClubID,
+                c.Name,
+                c.RegionID,
+
+                AthleteCount = athletes.Count(a => a.ClubID == c.ClubID),
+
+                RegionName = regions.FirstOrDefault(r => r.RegionID == c.RegionID)?.Name ?? "Unknown",
+
+                OriginalClubObject = c
+            }).ToList();
+
+            return displayList.Cast<dynamic>().ToList();
         }
 
         private void SaveResult(object sender, RoutedEventArgs e)
@@ -218,18 +352,113 @@ namespace AthleticsManager
         private void OpenAddAthleteWindow(object sender, RoutedEventArgs e)
         {
             AddAthleteWindow addAthleteWindow = new AddAthleteWindow();
-            addAthleteWindow.ShowDialog();
+            bool? result = addAthleteWindow.ShowDialog();
+            if (result == true)
+            {
+                LoadAthletesData();
+            }
+
         }
         private void OpenUpdateAthleteWindow(object sender, RoutedEventArgs e)
         {
             UpdateAthleteWindow updateAthleteWindow = new UpdateAthleteWindow();
-            updateAthleteWindow.ShowDialog();
+            bool? result = updateAthleteWindow.ShowDialog();
+            if (result == true)
+            {
+                LoadAthletesData();
+            }
         }
 
         private void OpenAddCompetitionWindow(object sender, RoutedEventArgs e)
         {
             AddCompetitionWindow addCompetitionWindow = new AddCompetitionWindow();
-            addCompetitionWindow.ShowDialog();
+            bool? result = addCompetitionWindow.ShowDialog();
+            if (result == true)
+            {
+                LoadCompetitionsData();
+            }
+        }
+
+        private void OpenDeleteAthleteWindow(object sender, RoutedEventArgs e)
+        {
+            DeleteAthleteWindow deleteAthleteWindow = new DeleteAthleteWindow();
+            bool? result = deleteAthleteWindow.ShowDialog();
+            if (result == true)
+            {
+                LoadAthletesData();
+            }
+        }
+
+        private void CompetitionSearch(object sender, TextChangedEventArgs e)
+        {
+            RefreshCompetitionGrid();
+        }
+
+        private void OpenCompetition(object sender, RoutedEventArgs e)
+        {
+            Competition selectedComp = ((FrameworkElement)sender).DataContext as Competition;
+
+            if (selectedComp != null)
+            {
+                OpenDetailWindow(selectedComp);
+            }
+        }
+        private void OpenAddClubWindow(object sender, RoutedEventArgs e)
+        {
+            AddClubWindow addClubWindow = new AddClubWindow();
+            bool? result = addClubWindow.ShowDialog();
+            if (result == true)
+            {
+                LoadClubsData();
+            }
+        }
+
+            private void OpenNextRace(object sender, RoutedEventArgs e)
+        {
+            if (nearestCompetition != null)
+            {
+                OpenDetailWindow(nearestCompetition);
+            }
+        }
+
+        private void OpenDetailWindow(Competition competition)
+        {
+            CompetitionDetailWindow detailWin = new CompetitionDetailWindow(competition);
+            detailWin.ShowDialog();   
+        }
+
+        private void BtnOpenTopClub_Click(object sender, RoutedEventArgs e)
+        {
+            // Pokud máme načtený top klub, otevřeme jeho detail
+            if (topClub != null)
+            {
+                // Předpokládám, že už máte vytvořené okno ClubDetailWindow
+                ClubDetailWindow win = new ClubDetailWindow(topClub);
+                win.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No top club loaded.");
+            }
+        }
+
+        private void TxtClubSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // Pokud seznam ještě není načtený, nic neděláme
+            var allClubsDisplayList = GetClubListWithRegions();
+
+            if (allClubsDisplayList == null) return;
+
+            string filter = TxtClubSearch.Text?.ToLower() ?? "";
+
+            // Vyfiltrujeme data z globálního seznamu
+            var filteredList = allClubsDisplayList
+                .Where(x => x.Name.ToLower().Contains(filter) ||
+                            x.RegionName.ToLower().Contains(filter)) // Můžeme hledat i podle regionu!
+                .ToList();
+
+            // Pošleme vyfiltrovaný seznam do Gridu
+            RefreshClubsGrid(filteredList);
         }
 
     }

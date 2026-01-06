@@ -16,6 +16,12 @@
     <Compile Update="AddCompetitionWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="CompetitionDetailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="DeleteAthleteWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="UpdateAthleteWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AddCompetitionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CompetitionDetailWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

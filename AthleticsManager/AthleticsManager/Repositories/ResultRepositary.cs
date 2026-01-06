@@ -85,5 +85,10 @@ namespace AthleticsManager.Repositories
             return newResult;
         }
 
+        public void GetResultsByCompetition(int CompetitionID)
+        {
+
+        }
+
     }
 }

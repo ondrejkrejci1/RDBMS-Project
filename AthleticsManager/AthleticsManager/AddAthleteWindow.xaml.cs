@@ -54,22 +54,29 @@ namespace AthleticsManager
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            string firstName = FirstNameTextBox.Text;
-            string lastName = LastNameTextBox.Text;
-            DateTime dateTime = DateTime.Parse(DateOfBirthSelector.Text);
+            try
+            {
+                string firstName = FirstNameTextBox.Text;
+                string lastName = LastNameTextBox.Text;
+                DateTime dateTime = DateTime.Parse(DateOfBirthSelector.Text);
 
-            ComboBoxItem selectedGenderItem = (ComboBoxItem)GenderSelect.SelectedItem;
-            string gender = selectedGenderItem.Content.ToString();
-            gender = gender.Substring(0, 1);
+                ComboBoxItem selectedGenderItem = (ComboBoxItem)GenderSelect.SelectedItem;
+                string gender = selectedGenderItem.Content.ToString();
+                gender = gender.Substring(0, 1);
 
-            ComboBoxItem selectedClubItem = (ComboBoxItem)ClubsComboBox.SelectedItem;
-            int clubID = (int)selectedClubItem.Tag;
+                ComboBoxItem selectedClubItem = (ComboBoxItem)ClubsComboBox.SelectedItem;
+                int clubID = (int)selectedClubItem.Tag;
 
-            Athlete athlete = new Athlete(firstName, lastName, dateTime, gender, clubID);
+                Athlete athlete = new Athlete(firstName, lastName, dateTime, gender, clubID);
 
-            athleteRepositary.CreateNewAthlete(athlete);
+                athleteRepositary.CreateNewAthlete(athlete);
 
-            DialogResult = true;
+                DialogResult = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding new athlete: {ex.Message}");
+            }
         }
     }
 }

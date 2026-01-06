@@ -159,3 +159,7 @@ C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\Ath
 C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\Athletic.3B81A875.Up2Date
 C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\AthleticsManager.genruntimeconfig.cache
 C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\ref\AthleticsManager.dll
+C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\DeleteAthleteWindow.g.cs
+C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\DeleteAthleteWindow.baml
+C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\CompetitionDetailWindow.g.cs
+C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\CompetitionDetailWindow.baml

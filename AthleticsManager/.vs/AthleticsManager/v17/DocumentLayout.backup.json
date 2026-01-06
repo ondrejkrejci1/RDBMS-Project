@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\updateathletewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\updateathletewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\addclubwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\addclubwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\repositories\\athleterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\repositories\\athleterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\addclubwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\addclubwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\updateathletewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\updateathletewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\addathletewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\addathletewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,53 +34,52 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AddAthleteWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddAthleteWindow.xaml.cs",
-              "RelativeDocumentMoniker": "AthleticsManager\\AddAthleteWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddAthleteWindow.xaml.cs",
-              "RelativeToolTip": "AthleticsManager\\AddAthleteWindow.xaml.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAA5wDwAAAAMAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "AddClubWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddClubWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\AddClubWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddClubWindow.xaml.cs",
+              "RelativeToolTip": "AthleticsManager\\AddClubWindow.xaml.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwBwAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T20:11:12.569Z",
+              "WhenOpened": "2026-01-05T21:23:04.375Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AthleteRepository.cs",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\AthleteRepository.cs",
-              "RelativeDocumentMoniker": "AthleticsManager\\Repositories\\AthleteRepository.cs",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\AthleteRepository.cs",
-              "RelativeToolTip": "AthleticsManager\\Repositories\\AthleteRepository.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAqwK0AAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:54:15.597Z",
+              "Title": "AddClubWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddClubWindow.xaml",
+              "RelativeDocumentMoniker": "AthleticsManager\\AddClubWindow.xaml",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AddClubWindow.xaml",
+              "RelativeToolTip": "AthleticsManager\\AddClubWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-05T21:23:02.343Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UpdateAthleteWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\UpdateAthleteWindow.xaml.cs",
-              "RelativeDocumentMoniker": "AthleticsManager\\UpdateAthleteWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\UpdateAthleteWindow.xaml.cs",
-              "RelativeToolTip": "AthleticsManager\\UpdateAthleteWindow.xaml.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAowCcAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-04T19:15:34.191Z",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "AthleticsManager\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\MainWindow.xaml",
+              "RelativeToolTip": "AthleticsManager\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-05T13:57:30.596Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "UpdateAthleteWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\UpdateAthleteWindow.xaml",
-              "RelativeDocumentMoniker": "AthleticsManager\\UpdateAthleteWindow.xaml",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\UpdateAthleteWindow.xaml",
-              "RelativeToolTip": "AthleticsManager\\UpdateAthleteWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-04T19:05:33.896Z",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\MainWindow.xaml.cs",
+              "RelativeToolTip": "AthleticsManager\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAHkBAAAAAAAAAAAowJ0BAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T13:57:29.795Z",
               "EditorCaption": ""
             }
           ]

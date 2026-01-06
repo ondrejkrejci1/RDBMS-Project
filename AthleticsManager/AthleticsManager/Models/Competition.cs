@@ -30,5 +30,13 @@
             CompetitionId = competitionId;
         }
 
+        public string DateString
+        {
+            get
+            {
+                return Date.ToString("dd.MM.yyyy");
+            }
+        }
+
     }
 }

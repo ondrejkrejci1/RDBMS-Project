@@ -22,30 +22,37 @@ namespace AthleticsManager
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            string clubName = ClubNameTextBox.Text;
-
-            ComboBoxItem selectedItem = (ComboBoxItem)ClubRegionComboBox.SelectedItem;
-
-            if (string.IsNullOrWhiteSpace(clubName))
+            try 
             {
-                MessageBox.Show("Please enter a valid club name.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                string clubName = ClubNameTextBox.Text;
+
+                ComboBoxItem selectedItem = (ComboBoxItem)ClubRegionComboBox.SelectedItem;
+
+                if (string.IsNullOrWhiteSpace(clubName))
+                {
+                    MessageBox.Show("Please enter a valid club name.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (selectedItem == null)
+                {
+                    MessageBox.Show("Please select a region.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                int regionID = int.Parse(selectedItem.Tag.ToString());
+
+
+                Club club = new Club(clubName, regionID);
+                club = clubRepositary.CreateNewClub(club);
+
+                addAthleteWindow.NewClubAdded(club);
+
+                DialogResult = true;
             }
-            if (selectedItem == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Please select a region.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show($"Error adding new club: {ex.Message}");
             }
-
-            int regionID = int.Parse(selectedItem.Tag.ToString());
-            
-
-            Club club = new Club(clubName, regionID);
-            club = clubRepositary.CreateNewClub(club);
-
-            addAthleteWindow.NewClubAdded(club);
-
-            DialogResult = true;
         }
     }
 }

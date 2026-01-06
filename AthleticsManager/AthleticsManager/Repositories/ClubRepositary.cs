@@ -71,5 +71,31 @@ namespace AthleticsManager.Repositories
 
         }
 
+        public Club GetById(int clubID)
+        {
+            Club club = null;
+
+            string query = "SELECT ClubID, Name, RegionID FROM Club WHERE ClubID = @ClubID";
+
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+                command.Parameters.AddWithValue("@ClubID", clubID);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        club = new Club
+                        (
+                            (int)reader["ClubID"],
+                            reader["Name"].ToString(),
+                            (int)reader["RegionID"]
+                        );
+                    }
+                }
+            }
+            return club;
+        }
+
     }
 }

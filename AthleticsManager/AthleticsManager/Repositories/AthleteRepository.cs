@@ -197,5 +197,26 @@ namespace AthleticsManager.Repositories
 
         }
 
+        public void Delete(int athleteID)
+        {
+            string resultQuery = "DELETE FROM Result WHERE AthleteID = @AthleteID";
+
+            using (var command = new SqlCommand(resultQuery, DatabaseSingleton.GetInstance()))
+            {
+                command.Parameters.AddWithValue("@AthleteID", athleteID);
+
+                command.ExecuteNonQuery();
+            }
+
+            string athleteQuery = "DELETE FROM Athlete WHERE AthleteID = @AthleteID";
+
+            using (var command = new SqlCommand(athleteQuery, DatabaseSingleton.GetInstance()))
+            {
+                command.Parameters.AddWithValue("@AthleteID", athleteID);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
 }

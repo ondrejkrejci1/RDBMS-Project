@@ -19,18 +19,25 @@ namespace AthleticsManager
         }
         private void Submit(object sender, RoutedEventArgs e)
         {
-            string name = NameTextBox.Text;
-            string venue = VenueTextBox.Text;
-            DateTime date = DateTime.Parse(DateSelector.Text);
+            try 
+            {
+                string name = NameTextBox.Text;
+                string venue = VenueTextBox.Text;
+                DateTime date = DateTime.Parse(DateSelector.Text);
 
-            ComboBoxItem selectedTypeItem = (ComboBoxItem)TypeSelect.SelectedItem;
-            string type = selectedTypeItem.Content.ToString();
+                ComboBoxItem selectedTypeItem = (ComboBoxItem)TypeSelect.SelectedItem;
+                string type = selectedTypeItem.Content.ToString();
 
-            Competition competition = new Competition(name, date, venue, type);
+                Competition competition = new Competition(name, date, venue, type);
 
-            competition = competitionRepositary.CreateNewCompetition(competition);
+                competition = competitionRepositary.CreateNewCompetition(competition);
 
-            DialogResult = true;
+                DialogResult = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error adding new competition: {ex.Message}");
+            }
         }
 
     }

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\App.xaml
-5947734531
+7295136546
 
-21-1979901481
+23829640569
 217-1863698421
-AddAthleteWindow.xaml;AddClubWindow.xaml;AddCompetitionWindow.xaml;MainWindow.xaml;UpdateAthleteWindow.xaml;
+AddAthleteWindow.xaml;AddClubWindow.xaml;AddCompetitionWindow.xaml;CompetitionDetailWindow.xaml;DeleteAthleteWindow.xaml;MainWindow.xaml;UpdateAthleteWindow.xaml;
 
-False
+True
 
