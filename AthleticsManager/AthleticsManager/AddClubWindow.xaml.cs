@@ -10,11 +10,10 @@ namespace AthleticsManager
     /// </summary>
     public partial class AddClubWindow : Window
     {
-        private AddAthleteWindow addAthleteWindow;
+        public AddAthleteWindow AddAthleteWindow { set; get; }
         private ClubRepositary clubRepositary;
-        public AddClubWindow(AddAthleteWindow addAthleteWindow)
+        public AddClubWindow()
         {
-            this.addAthleteWindow = addAthleteWindow;
             clubRepositary = new ClubRepositary();
             InitializeComponent();
         }
@@ -45,7 +44,10 @@ namespace AthleticsManager
                 Club club = new Club(clubName, regionID);
                 club = clubRepositary.CreateNewClub(club);
 
-                addAthleteWindow.NewClubAdded(club);
+                if (AddAthleteWindow != null)
+                {
+                    AddAthleteWindow.NewClubAdded(club);
+                }
 
                 DialogResult = true;
             }

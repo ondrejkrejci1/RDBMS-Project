@@ -218,5 +218,35 @@ namespace AthleticsManager.Repositories
             }
         }
 
+        public List<Athlete> GetAthletesByClub(int clubID)
+        {
+            var athletes = new List<Athlete>();
+
+            string query = "SELECT AthleteID, FirstName, LastName, BirthDate, Gender, ClubID FROM Athlete WHERE ClubID = @ClubID";
+
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+
+                command.Parameters.AddWithValue("@ClubID", clubID);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        athletes.Add(new Athlete(
+                            (int)reader["AthleteID"],
+                            reader["FirstName"].ToString(),
+                            reader["LastName"].ToString(),
+                            (DateTime)reader["BirthDate"],
+                            reader["Gender"].ToString(),
+                            (int)reader["ClubID"]
+                        ));
+                    }
+                }
+            }
+
+            return athletes;
+        }
+
     }
 }

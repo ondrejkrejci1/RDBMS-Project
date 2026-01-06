@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AthleticsManager.Models
+﻿namespace AthleticsManager.Models
 {
-    public class Region
+    public enum Region
     {
-        public int RegionID { get; protected set; }
-        public string Name { get; protected set; }
+        HlavníměstoPraha = 1,
+        Středočeskýkraj = 2,
+        Jihočeskýkraj = 3,
+        Plzeňskýkraj = 4,
+        Karlovarskýkraj = 5,
+        Ústeckýkraj = 6,
+        Libereckýkraj = 7,
+        Královéhradeckýkraj = 8,
+        Pardubickýkraj = 9,
+        KrajVysočina = 10,
+        Jihomoravskýkraj = 11,
+        Olomouckýkraj = 12,
+        Zlínskýkraj = 13,
+        Moravskoslezskýkraj = 14
 
-        public Region(int regionID, string name)
-        {
-            RegionID = regionID;
-            Name = name;
-        }
     }
 }

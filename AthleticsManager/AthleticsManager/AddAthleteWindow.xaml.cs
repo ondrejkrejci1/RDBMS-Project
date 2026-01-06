@@ -24,7 +24,8 @@ namespace AthleticsManager
 
         private void RegisterNewClub(object sender, RoutedEventArgs e)
         {
-            addClubWindow = new AddClubWindow(this);
+            addClubWindow = new AddClubWindow();
+            addClubWindow.AddAthleteWindow = this;
             addClubWindow.ShowDialog();
         }
 

@@ -1,8 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using AthleticsManager.Models;
+﻿using AthleticsManager.Models;
 using AthleticsManager.Repositories;
-using static System.Reflection.Metadata.BlobBuilder;
+using System.Windows;
+using System.Windows.Controls;
+using Microsoft.Win32; // Potřeba pro OpenFileDialog
+using System.IO;       // Potřeba pro práci se soubory
+using System.Linq;
 
 namespace AthleticsManager
 {
@@ -50,30 +52,35 @@ namespace AthleticsManager
             switch (viewTag)
             {
                 case "Dashboard":
-                    TxtPageTitle.Text = "Dashboard Overview";
-                    ViewDashboard.Visibility = Visibility.Visible;
+                    TxtPageTitle.Visibility = Visibility.Collapsed;
+                    ViewOverview.Visibility = Visibility.Visible;
+                    LoadOverviewData();
                     break;
 
                 case "Athletes":
-                    TxtPageTitle.Text = "Athletes Management";
+                    TxtPageTitle.Text = "Athletes";
+                    TxtPageTitle.Visibility = Visibility.Visible;
                     ViewAthletes.Visibility = Visibility.Visible;
                     LoadAthletesData();
                     break;
 
                 case "Competitions":
                     TxtPageTitle.Text = "Competitions";
+                    TxtPageTitle.Visibility = Visibility.Visible;
                     ViewCompetitions.Visibility = Visibility.Visible;
                     LoadCompetitionsData();
                     break;
 
                 case "Results":
                     TxtPageTitle.Text = "Add New Result";
+                    TxtPageTitle.Visibility = Visibility.Visible;
                     ViewNewResult.Visibility = Visibility.Visible;
                     LoadComboboxData();
                     break;
 
                 case "Clubs":
-                    TxtPageTitle.Text = "Clubs Registry";
+                    TxtPageTitle.Text = "Clubs";
+                    TxtPageTitle.Visibility = Visibility.Visible;
                     ViewClubs.Visibility = Visibility.Visible;
                     LoadClubsData();
                     break;
@@ -86,7 +93,7 @@ namespace AthleticsManager
         private void HideAllViews()
         {
             ViewWelcome.Visibility = Visibility.Collapsed;
-            ViewDashboard.Visibility = Visibility.Collapsed;
+            ViewOverview.Visibility = Visibility.Collapsed;
             ViewAthletes.Visibility = Visibility.Collapsed;
             ViewCompetitions.Visibility = Visibility.Collapsed;
             ViewNewResult.Visibility = Visibility.Collapsed;
@@ -103,7 +110,6 @@ namespace AthleticsManager
                 {
                     var displayList = athletes.Select(a =>
                     {
-                        // ZDE VOLÁME VAŠI METODU:
                         Club foundClub = clubRepositary.GetById(a.ClubID);
                         string ClubName = "Unknown Club";
                         if (foundClub != null)
@@ -188,10 +194,7 @@ namespace AthleticsManager
         {
             allCompetitions = competitionRepositary.GetAll();
 
-            nearestCompetition = allCompetitions
-                .Where(c => c.Date >= DateTime.Today)
-                .OrderBy(c => c.Date)
-                .FirstOrDefault();
+            nearestCompetition = allCompetitions.Where(c => c.Date >= DateTime.Today).OrderBy(c => c.Date).FirstOrDefault();
 
             if (nearestCompetition != null)
             {
@@ -213,9 +216,7 @@ namespace AthleticsManager
         {
             string filter = TxtCompSearch.Text?.ToLower() ?? "";
 
-            var filteredList = allCompetitions
-                .Where(c => c.Name.ToLower().Contains(filter) || c.Venue.ToLower().Contains(filter))
-                .ToList();
+            var filteredList = allCompetitions.Where(c => c.Name.ToLower().Contains(filter) || c.Venue.ToLower().Contains(filter)).ToList();
 
             DgCompetitions.ItemsSource = filteredList;
         }
@@ -224,16 +225,12 @@ namespace AthleticsManager
         {
             try
             {
-                // 1. Získání kompletního seznamu pomocí naší metody
                 var allClubsDisplayList = GetClubListWithRegions();
 
-                // 2. NAJÍT NEJVĚTŠÍ KLUB (Top Club Logic)
                 var topClubData = allClubsDisplayList.OrderByDescending(x => x.AthleteCount).FirstOrDefault();
 
                 if (topClubData != null)
                 {
-                    // Pozor: topClubData je dynamic, musíme přetypovat nebo použít property
-                    // Předpokládám, že 'topClub' je globální proměnná typu Club
                     topClub = topClubData.OriginalClubObject;
 
                     TxtTopClubName.Text = topClubData.Name;
@@ -247,7 +244,6 @@ namespace AthleticsManager
                     BtnOpenTopClub.IsEnabled = false;
                 }
 
-                // 3. Zobrazit v tabulce (pošleme tam celý seznam)
                 RefreshClubsGrid(allClubsDisplayList);
             }
             catch (Exception ex)
@@ -282,6 +278,65 @@ namespace AthleticsManager
             }).ToList();
 
             return displayList.Cast<dynamic>().ToList();
+        }
+
+        private void LoadOverviewData()
+        {
+            try
+            {
+                // 1. ZÍSKÁNÍ POČTŮ (KARTY)
+                var allAthletes = athleteRepository.GetAll();
+                var allClubs = clubRepositary.GetAll();
+                var allCompetitions = competitionRepositary.GetAll();
+                var allDisciplines = disciplineRepositary.GetAll();
+
+                TxtDashAthletesCount.Text = allAthletes.Count.ToString();
+                TxtDashClubsCount.Text = allClubs.Count.ToString();
+                TxtDashRacesCount.Text = allCompetitions.Count.ToString();
+
+                // 2. NEJBLIŽŠÍ ZÁVOD
+                var nextRace = allCompetitions
+                    .Where(c => c.Date >= DateTime.Today)
+                    .OrderBy(c => c.Date)
+                    .FirstOrDefault();
+
+                if (nextRace != null)
+                {
+                    TxtDashNextRaceName.Text = nextRace.Name;
+                    TxtDashNextRaceDate.Text = $"{nextRace.Date:dd.MM.yyyy} ({nextRace.Venue})";
+                }
+                else
+                {
+                    TxtDashNextRaceName.Text = "No upcoming races";
+                    TxtDashNextRaceDate.Text = "";
+                }
+
+                var allResults = resultRepositary.GetAll();
+
+                var recentResults = allResults
+                    .OrderByDescending(r => r.ResultID) // Předpokládáme, že vyšší ID = novější
+                    .Take(10) // Vezmeme posledních 10
+                    .Select(r => new RecentResultView
+                    {
+                        Performance = r.Performance,
+                        // Najdeme jméno atleta
+                        AthleteName = allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.FirstName + " " +
+                                      allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.LastName ?? "Unknown",
+
+                        // Zde zatím dáváme jen ID, pokud nemáte DisciplineRepository
+                        DisciplineName = allDisciplines.FirstOrDefault(d => d.DisciplineID == r.DisciplineID)?.Name ?? "Unknown Disc.",
+
+                        // Datum ze závodu
+                        DateString = allCompetitions.FirstOrDefault(c => c.CompetitionId == r.CompetitionID)?.Date.ToShortDateString() ?? "-"
+                    })
+                    .ToList();
+
+                DgRecentResults.ItemsSource = recentResults;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading dashboard: " + ex.Message);
+            }
         }
 
         private void SaveResult(object sender, RoutedEventArgs e)
@@ -405,12 +460,14 @@ namespace AthleticsManager
         }
         private void OpenAddClubWindow(object sender, RoutedEventArgs e)
         {
+            
             AddClubWindow addClubWindow = new AddClubWindow();
             bool? result = addClubWindow.ShowDialog();
             if (result == true)
             {
                 LoadClubsData();
             }
+            
         }
 
             private void OpenNextRace(object sender, RoutedEventArgs e)
@@ -427,9 +484,8 @@ namespace AthleticsManager
             detailWin.ShowDialog();   
         }
 
-        private void BtnOpenTopClub_Click(object sender, RoutedEventArgs e)
+        private void OpenTopClub(object sender, RoutedEventArgs e)
         {
-            // Pokud máme načtený top klub, otevřeme jeho detail
             if (topClub != null)
             {
                 // Předpokládám, že už máte vytvořené okno ClubDetailWindow
@@ -442,7 +498,7 @@ namespace AthleticsManager
             }
         }
 
-        private void TxtClubSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private void TxtClubSearchTextChanged(object sender, TextChangedEventArgs e)
         {
             // Pokud seznam ještě není načtený, nic neděláme
             var allClubsDisplayList = GetClubListWithRegions();
@@ -451,14 +507,46 @@ namespace AthleticsManager
 
             string filter = TxtClubSearch.Text?.ToLower() ?? "";
 
-            // Vyfiltrujeme data z globálního seznamu
-            var filteredList = allClubsDisplayList
-                .Where(x => x.Name.ToLower().Contains(filter) ||
-                            x.RegionName.ToLower().Contains(filter)) // Můžeme hledat i podle regionu!
-                .ToList();
+            var filteredList = allClubsDisplayList.Where(x => x.Name.ToLower().Contains(filter) || x.RegionName.ToLower().Contains(filter)).ToList();
 
-            // Pošleme vyfiltrovaný seznam do Gridu
             RefreshClubsGrid(filteredList);
+        }
+
+        private void OpenClubDetail(object sender, RoutedEventArgs e)
+        {
+            dynamic selectedRow = ((FrameworkElement)sender).DataContext;
+
+            if (selectedRow != null)
+            {
+                Club c = selectedRow.OriginalClubObject;
+                OpenClubDetailWindow(c);
+            }
+        }
+
+        private void OpenClubDetailWindow(Club club)
+        {
+            ClubDetailWindow win = new ClubDetailWindow(club);
+            win.ShowDialog();
+            LoadClubsData();
+        }
+
+        private void BtnImportAthletes_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All files (*.*)|*.*";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                MessageBox.Show($"File selected: {openFileDialog.FileName}\n(Import logic needs to be implemented)");
+                // Zde by byl kód pro čtení souboru
+                LoadOverviewData(); // Refresh
+            }
+        }
+
+        // Tlačítko pro Import Závodů
+        private void BtnImportCompetitions_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Import Competitions coming soon!");
         }
 
     }

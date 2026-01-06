@@ -16,6 +16,9 @@
     <Compile Update="AddCompetitionWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ClubDetailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="CompetitionDetailWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,22 +1,58 @@
 ﻿namespace AthleticsManager.Models
 {
-    public class Discipline
+    public enum Discipline
     {
-        public int DisciplineID { get; protected set; }
-        public string Name { get; protected set; }
-        public string UnitType { get; protected set; }
-
-        public Discipline(string name, string unitType)
-        {
-            Name = name;
-            UnitType = unitType;
-        }
-        public Discipline(int disciplineID, string name, string unitType)
-        {
-            DisciplineID = disciplineID;
-            Name = name;
-            UnitType = unitType;
-        }
-
+        Run50m = 1,
+        Run60m = 2,
+        Run100m = 3,
+        Run150m = 4,
+        Run200m = 5,
+        Run300m = 6,
+        Run400m = 7,
+        Run500m = 8,
+        Run600m = 9,
+        Run800m = 10,
+        Run1000m = 11,
+        Run1500m = 12,
+        Run1Mile = 13,
+        Run2000m = 14,
+        Run3000m = 15,
+        Run5000m = 16,
+        Run10000m = 17,
+        Hurdles50m = 18,
+        Hurdles60m = 19,
+        Hurdles80m = 20,
+        Hurdles100m = 21,
+        Hurdles110m = 22,
+        Hurdles200m = 23,
+        Hurdles300m = 24,
+        Hurdles400m = 25,
+        Steeplechase1500m = 26,
+        Steeplechase2000m = 27,
+        Steeplechase3000m = 28,
+        LongJump = 29,
+        TripleJump = 30,
+        HighJump = 31,
+        PoleVault = 32,
+        StandingLongJump = 33,
+        ShotPut = 34,
+        DiscusThrow = 35,
+        JavelinThrow = 36,
+        HammerThrow = 37,
+        CricketBallThrow = 38,
+        Run4x60m = 39,
+        Run4x100m = 40,
+        Run4x200m = 41,
+        Run4x300m = 42,
+        Run4x400m = 43,
+        Walk3000m = 44,
+        Walk5000m = 45,
+        Walk10km = 46,
+        Walk20km = 47,
+        Triathlon = 48,
+        Tetrathlon = 49,
+        Pentathlon = 50,
+        Heptathlon = 51,
+        Decathlon = 52
     }
 }
