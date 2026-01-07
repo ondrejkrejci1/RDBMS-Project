@@ -7,11 +7,11 @@
         public int CompetitionID { get; protected set; }
         public int DisciplineID { get; protected set; }
         public decimal Performance { get; protected set; }
-        public double Wind { get; protected set; }
-        public int Placement { get; protected set; }
-        public string Note { get; protected set; }
+        public double? Wind { get; protected set; }
+        public int? Placement { get; protected set; }
+        public string? Note { get; protected set; }
 
-        public Result(int athleteID, int competitionID, int disciplineID, decimal performance, double wind, int placement, string note) 
+        public Result(int athleteID, int competitionID, int disciplineID, decimal performance, double? wind, int? placement, string? note) 
         {
             AthleteID = athleteID;
             CompetitionID = competitionID;
@@ -22,7 +22,7 @@
             Note = note;
         }
 
-        public Result(int resultID, int athleteID, int competitionID, int disciplineID, decimal performance, double wind, int placement, string note)
+        public Result(int resultID, int athleteID, int competitionID, int disciplineID, decimal performance, double? wind, int? placement, string? note)
         {
             ResultID = resultID;
             AthleteID = athleteID;

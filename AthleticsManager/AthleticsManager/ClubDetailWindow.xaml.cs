@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using AthleticsManager.Models;
+using AthleticsManager.Models.EnumHelpers;
 using AthleticsManager.Repositories;
 
 namespace AthleticsManager
@@ -30,12 +31,7 @@ namespace AthleticsManager
 
             TxtNumberOfMembers.Text = athletes.Count.ToString();
 
-            RegionRepositary regRepo = new RegionRepositary();
-            var regions = regRepo.GetAll();
-
-            var region = regions.FirstOrDefault(r => r.RegionID == club.RegionID);
-
-            TxtRegion.Text = region != null ? region.Name : "Unknown Region";
+            TxtRegion.Text = ((Region)club.RegionID).ToFriendlyString();
         }
 
     }

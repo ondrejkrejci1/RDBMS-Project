@@ -1,15 +1,14 @@
 ﻿using AthleticsManager.Models;
 using AthleticsManager.Repositories;
+using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
-using Microsoft.Win32; // Potřeba pro OpenFileDialog
-using System.IO;       // Potřeba pro práci se soubory
-using System.Linq;
+using AthleticsManager.Models.EnumHelpers;
+using System.Text.Json;
+using System.IO;
 
 namespace AthleticsManager
 {
-    
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -18,7 +17,6 @@ namespace AthleticsManager
         private AthleteRepository athleteRepository;
         private ClubRepositary clubRepositary;
         private CompetitionRepositary competitionRepositary;
-        private DisciplineRepositary disciplineRepositary;
         private ResultRepositary resultRepositary;
 
         private Competition nearestCompetition;
@@ -33,7 +31,6 @@ namespace AthleticsManager
             athleteRepository = new AthleteRepository();
             clubRepositary = new ClubRepositary();
             competitionRepositary = new CompetitionRepositary();
-            disciplineRepositary = new DisciplineRepositary();
             resultRepositary = new ResultRepositary();
             allCompetitions = new List<Competition>();
         }
@@ -179,12 +176,13 @@ namespace AthleticsManager
         {
             CmbResDiscipline.Items.Clear();
 
-            var disciplines = disciplineRepositary.GetAll();
-            foreach (var discipline in disciplines)
+            var disciplines = Enum.GetValues(typeof(Discipline));
+
+            foreach (Discipline discipline in disciplines)
             {
                 ComboBoxItem comboBoxItem = new ComboBoxItem();
-                comboBoxItem.Content = discipline.Name;
-                comboBoxItem.Tag = discipline.DisciplineID;
+                comboBoxItem.Content = discipline.ToFriendlyString();
+                comboBoxItem.Tag = (int)discipline;
 
                 CmbResDiscipline.Items.Add(comboBoxItem);
             }
@@ -258,11 +256,9 @@ namespace AthleticsManager
 
         private List<dynamic> GetClubListWithRegions()
         {
-            var regionRepo = new RegionRepositary();
 
             var clubs = clubRepositary.GetAll();
             var athletes = athleteRepository.GetAll();
-            var regions = regionRepo.GetAll();
 
             var displayList = clubs.Select(c => new
             {
@@ -272,7 +268,7 @@ namespace AthleticsManager
 
                 AthleteCount = athletes.Count(a => a.ClubID == c.ClubID),
 
-                RegionName = regions.FirstOrDefault(r => r.RegionID == c.RegionID)?.Name ?? "Unknown",
+                RegionName = ((Region)c.RegionID).ToFriendlyString(),
 
                 OriginalClubObject = c
             }).ToList();
@@ -284,21 +280,15 @@ namespace AthleticsManager
         {
             try
             {
-                // 1. ZÍSKÁNÍ POČTŮ (KARTY)
                 var allAthletes = athleteRepository.GetAll();
                 var allClubs = clubRepositary.GetAll();
                 var allCompetitions = competitionRepositary.GetAll();
-                var allDisciplines = disciplineRepositary.GetAll();
 
                 TxtDashAthletesCount.Text = allAthletes.Count.ToString();
                 TxtDashClubsCount.Text = allClubs.Count.ToString();
                 TxtDashRacesCount.Text = allCompetitions.Count.ToString();
 
-                // 2. NEJBLIŽŠÍ ZÁVOD
-                var nextRace = allCompetitions
-                    .Where(c => c.Date >= DateTime.Today)
-                    .OrderBy(c => c.Date)
-                    .FirstOrDefault();
+                var nextRace = allCompetitions.Where(c => c.Date >= DateTime.Today).OrderBy(c => c.Date).FirstOrDefault();
 
                 if (nextRace != null)
                 {
@@ -313,23 +303,7 @@ namespace AthleticsManager
 
                 var allResults = resultRepositary.GetAll();
 
-                var recentResults = allResults
-                    .OrderByDescending(r => r.ResultID) // Předpokládáme, že vyšší ID = novější
-                    .Take(10) // Vezmeme posledních 10
-                    .Select(r => new RecentResultView
-                    {
-                        Performance = r.Performance,
-                        // Najdeme jméno atleta
-                        AthleteName = allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.FirstName + " " +
-                                      allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.LastName ?? "Unknown",
-
-                        // Zde zatím dáváme jen ID, pokud nemáte DisciplineRepository
-                        DisciplineName = allDisciplines.FirstOrDefault(d => d.DisciplineID == r.DisciplineID)?.Name ?? "Unknown Disc.",
-
-                        // Datum ze závodu
-                        DateString = allCompetitions.FirstOrDefault(c => c.CompetitionId == r.CompetitionID)?.Date.ToShortDateString() ?? "-"
-                    })
-                    .ToList();
+                var recentResults = allResults.OrderByDescending(r => r.ResultID).Take(10).Select(r => new RecentResultView{Performance = ((Discipline)r.DisciplineID).FormatPerformance(r.Performance),AthleteName = allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.FirstName + " " +allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID)?.LastName ?? "Unknown",DisciplineName = ((Discipline)r.DisciplineID).ToFriendlyString(),DateString = allCompetitions.FirstOrDefault(c => c.CompetitionId == r.CompetitionID)?.Date.ToShortDateString() ?? "-"}).ToList();
 
                 DgRecentResults.ItemsSource = recentResults;
             }
@@ -488,7 +462,6 @@ namespace AthleticsManager
         {
             if (topClub != null)
             {
-                // Předpokládám, že už máte vytvořené okno ClubDetailWindow
                 ClubDetailWindow win = new ClubDetailWindow(topClub);
                 win.ShowDialog();
             }
@@ -500,7 +473,6 @@ namespace AthleticsManager
 
         private void TxtClubSearchTextChanged(object sender, TextChangedEventArgs e)
         {
-            // Pokud seznam ještě není načtený, nic neděláme
             var allClubsDisplayList = GetClubListWithRegions();
 
             if (allClubsDisplayList == null) return;
@@ -530,23 +502,210 @@ namespace AthleticsManager
             LoadClubsData();
         }
 
-        private void BtnImportAthletes_Click(object sender, RoutedEventArgs e)
+        private void ImportAthletes(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "CSV Files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Filter = "JSON Files (*.json)|*.json";
 
             if (openFileDialog.ShowDialog() == true)
             {
-                MessageBox.Show($"File selected: {openFileDialog.FileName}\n(Import logic needs to be implemented)");
-                // Zde by byl kód pro čtení souboru
-                LoadOverviewData(); // Refresh
+                try
+                {
+                    string jsonContent = File.ReadAllText(openFileDialog.FileName);
+
+                    AthleteRepository repo = new AthleteRepository();
+                    int successCount = 0;
+                    int errorCount = 0;
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                    {
+                        JsonElement root = doc.RootElement;
+
+                        if (root.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    string firstName = element.GetProperty("FirstName").GetString();
+                                    string lastName = element.GetProperty("LastName").GetString();
+
+                                    DateTime birthDate = element.GetProperty("BirthDate").GetDateTime();
+
+                                    string gender = element.GetProperty("Gender").GetString();
+                                    string clubName = element.GetProperty("ClubName").GetString();
+                                    string clubRegion = element.GetProperty("ClubRegion").GetString();
+
+                                    repo.ImportAthlete(
+                                        firstName,
+                                        lastName,
+                                        birthDate,
+                                        gender,
+                                        clubName,
+                                        clubRegion
+                                    );
+
+                                    successCount++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Error while import: {ex.Message}");
+                                    errorCount++;
+                                }
+                            }
+                        }
+                    }
+
+                    MessageBox.Show($"Import successfully completed.\nSuccessfully: {successCount}\nErrors/Duplicates: {errorCount}");
+
+                    LoadOverviewData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Critical file error: " + ex.Message);
+                }
             }
         }
 
-        // Tlačítko pro Import Závodů
-        private void BtnImportCompetitions_Click(object sender, RoutedEventArgs e)
+        private void ImportCompetitions(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Import Competitions coming soon!");
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON Files (*.json)|*.json";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string jsonContent = File.ReadAllText(openFileDialog.FileName);
+
+                    CompetitionRepositary repo = new CompetitionRepositary();
+                    int successCount = 0;
+                    int errorCount = 0;
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                    {
+                        JsonElement root = doc.RootElement;
+
+                        if (root.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    string name = element.GetProperty("Name").GetString();
+                                    DateTime date = element.GetProperty("Date").GetDateTime();
+                                    string venue = element.GetProperty("Venue").GetString();
+
+                                    repo.ImportCompetition(name, date, venue);
+
+                                    successCount++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Error importing competition: {ex.Message}");
+                                    errorCount++;
+                                }
+                            }
+                        }
+                    }
+
+                    MessageBox.Show($"Import dokončen.\nÚspěšně: {successCount}\nPřeskočeno/Chyby: {errorCount}");
+
+                    LoadOverviewData();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Kritická chyba souboru: " + ex.Message);
+                }
+            }
+        }
+
+        private void ImportResults(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "JSON Files (*.json)|*.json";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    string jsonContent = File.ReadAllText(openFileDialog.FileName);
+
+                    int successCount = 0;
+                    int errorCount = 0;
+
+                    using (JsonDocument doc = JsonDocument.Parse(jsonContent))
+                    {
+                        JsonElement root = doc.RootElement;
+
+                        if (root.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (JsonElement element in root.EnumerateArray())
+                            {
+                                try
+                                {
+                                    string firstName = element.GetProperty("FirstName").GetString();
+                                    string lastName = element.GetProperty("LastName").GetString();
+                                    DateTime bDate = element.GetProperty("BirthDate").GetDateTime();
+                                    string gender = element.GetProperty("Gender").GetString();
+
+                                    string cName = element.GetProperty("ClubName").GetString();
+                                    string rName = element.GetProperty("RegionName").GetString();
+
+                                    string compName = element.GetProperty("CompetitionName").GetString();
+                                    DateTime compDate = element.GetProperty("CompetitionDate").GetDateTime();
+                                    string compVenue = element.GetProperty("CompetitionVenue").GetString();
+                                    string compType = element.GetProperty("CompetitionType").GetString();
+
+                                    string discName = element.GetProperty("DisciplineName").GetString();
+
+                                    decimal perf = element.GetProperty("Performance").GetDecimal();
+
+
+                                    double? wind = null;
+                                    if (element.TryGetProperty("Wind", out JsonElement windEl) && windEl.ValueKind != JsonValueKind.Null)
+                                    {
+                                        wind = windEl.GetDouble();
+                                    }
+
+                                    int? placement = null;
+                                    if (element.TryGetProperty("Placement", out JsonElement placEl) && placEl.ValueKind != JsonValueKind.Null)
+                                    {
+                                        placement = placEl.GetInt32();
+                                    }
+
+                                    string note = null;
+                                    if (element.TryGetProperty("Note", out JsonElement noteEl) && noteEl.ValueKind != JsonValueKind.Null)
+                                    {
+                                        note = noteEl.GetString();
+                                    }
+
+                                    resultRepositary.ImportResult(firstName, lastName, bDate, gender,
+                                        cName, rName,
+                                        compName, compDate, compVenue, compType,
+                                        discName, perf, wind, placement, note
+                                    );
+
+                                    successCount++;
+                                }
+                                catch (Exception ex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine($"Result import error: {ex.Message}");
+                                    errorCount++;
+                                }
+                            }
+                        }
+                    }
+
+                    MessageBox.Show($"Import complete.\nSuccessfully: {successCount}\nErrors: {errorCount}");
+
+                    LoadOverviewData(); 
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Critical file error: " + ex.Message);
+                }
+            }
         }
 
     }

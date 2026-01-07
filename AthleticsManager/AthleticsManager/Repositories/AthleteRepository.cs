@@ -64,34 +64,6 @@ namespace AthleticsManager.Repositories
             return athlete;
         }
 
-        public void AddResultWithTransaction(string firstName, string lastName, DateTime birthDate, string gender, int clubId, int competitionId, int disciplineId, decimal performance, float wind = -999)
-        {
-            using (var command = new SqlCommand("sp_AddRaceResult", DatabaseSingleton.GetInstance()))
-            {
-                command.CommandType = CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@FirstName", firstName);
-                command.Parameters.AddWithValue("@LastName", lastName);
-                command.Parameters.AddWithValue("@BirthDate", birthDate);
-                command.Parameters.AddWithValue("@Gender", gender);
-                command.Parameters.AddWithValue("@ClubID", clubId);
-                command.Parameters.AddWithValue("@CompetitionID", competitionId);
-                command.Parameters.AddWithValue("@DisciplineID", disciplineId);
-                command.Parameters.AddWithValue("@Performance", performance);
-
-                if (wind != -999)
-                    command.Parameters.AddWithValue("@Wind", wind);
-                else
-                    command.Parameters.AddWithValue("@Wind", DBNull.Value);
-
-                command.Parameters.AddWithValue("@Placement", DBNull.Value);
-                command.Parameters.AddWithValue("@Note", DBNull.Value);
-
-                command.ExecuteNonQuery();
-            }
-
-        }
-
         public Athlete CreateNewAthlete(Athlete newAthlete)
         {
             var allAthletes = GetAll();
@@ -246,6 +218,25 @@ namespace AthleticsManager.Repositories
             }
 
             return athletes;
+        }
+
+        public void ImportAthlete(string firstName, string lastName, DateTime birthDate, string gender, string clubName, string clubRegion)
+        {
+            string query = "ImportAthlete";
+
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@BirthDate", birthDate);
+                command.Parameters.AddWithValue("@Gender", gender);
+                command.Parameters.AddWithValue("@ClubName", clubName);
+                command.Parameters.AddWithValue("@ClubRegionName", clubRegion);
+
+                command.ExecuteNonQuery();
+            }
         }
 
     }

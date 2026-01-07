@@ -108,5 +108,21 @@ namespace AthleticsManager.Repositories
 
         }
 
+        public void ImportCompetition(string name, DateTime date, string venue)
+        {
+            string query = "ImportCompetition";
+
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@Date", date);
+                command.Parameters.AddWithValue("@Venue", venue);
+
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
 }

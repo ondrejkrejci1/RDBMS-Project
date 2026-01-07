@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\
+C:\Users\42060\Downloads\RDBMS-Project-main\RDBMS-Project-main\AthleticsManager\AthleticsManager\obj\Debug\net8.0-windows\
 AthleticsManager
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\App.xaml
+C:\Users\42060\Downloads\RDBMS-Project-main\RDBMS-Project-main\AthleticsManager\AthleticsManager\App.xaml
 81857844662
 
-251341063186
+25-1276429031
 217-1863698421
 AddAthleteWindow.xaml;AddClubWindow.xaml;AddCompetitionWindow.xaml;ClubDetailWindow.xaml;CompetitionDetailWindow.xaml;DeleteAthleteWindow.xaml;MainWindow.xaml;UpdateAthleteWindow.xaml;
 
-True
+False
 

@@ -15,7 +15,8 @@
         Jihomoravskýkraj = 11,
         Olomouckýkraj = 12,
         Zlínskýkraj = 13,
-        Moravskoslezskýkraj = 14
+        Moravskoslezskýkraj = 14,
+        Other = 15
 
     }
 }

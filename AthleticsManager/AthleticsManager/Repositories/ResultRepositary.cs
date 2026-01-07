@@ -1,5 +1,6 @@
 ﻿using AthleticsManager.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace AthleticsManager.Repositories
 {
@@ -13,6 +14,10 @@ namespace AthleticsManager.Repositories
 
             using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
             {
+
+                if (command.Connection.State != ConnectionState.Open)
+                    command.Connection.Open();
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -24,9 +29,9 @@ namespace AthleticsManager.Repositories
                             (int)reader["CompetitionID"],
                             (int)reader["DisciplineID"],
                             (decimal)reader["Performance"],
-                            (double)reader["Wind"],
-                            (int)reader["Placement"],
-                            reader["Note"].ToString()
+                            reader["Wind"] == DBNull.Value ? null : (double?)reader["Wind"],
+                            reader["Placement"] == DBNull.Value ? null : (int?)reader["Placement"],
+                            reader["Note"] == DBNull.Value ? null : reader["Note"].ToString()
                         ));
                     }
                 }
@@ -85,9 +90,38 @@ namespace AthleticsManager.Repositories
             return newResult;
         }
 
-        public void GetResultsByCompetition(int CompetitionID)
+        public void ImportResult(string firstName, string lastName, DateTime birthDate, string gender, string clubName, string regionName, string compName, DateTime compDate, string compVenue, string compType, string disciplineName, decimal performance, double? wind, int? placement, string note)
         {
+            string query = "AddRaceResutl";
 
+            using (var command = new SqlCommand(query, DatabaseSingleton.GetInstance()))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@FirstName", firstName);
+                command.Parameters.AddWithValue("@LastName", lastName);
+                command.Parameters.AddWithValue("@BirthDate", birthDate);
+                command.Parameters.AddWithValue("@Gender", gender);
+
+                command.Parameters.AddWithValue("@ClubName", clubName);
+                command.Parameters.AddWithValue("@RegionName", regionName);
+
+                command.Parameters.AddWithValue("@CompetitionName", compName);
+                command.Parameters.AddWithValue("@CompetitionDate", compDate);
+                command.Parameters.AddWithValue("@CompetitionVenue", compVenue);
+                command.Parameters.AddWithValue("@CompetitionType", compType);
+
+                command.Parameters.AddWithValue("@DisciplineName", disciplineName);
+                command.Parameters.AddWithValue("@Performance", performance);
+
+                command.Parameters.AddWithValue("@Wind", wind.HasValue ? (object)wind.Value : DBNull.Value);
+
+                command.Parameters.AddWithValue("@Placement", placement.HasValue ? (object)placement.Value : DBNull.Value);
+
+                command.Parameters.AddWithValue("@Note", string.IsNullOrEmpty(note) ? DBNull.Value : (object)note);
+
+                command.ExecuteNonQuery();
+            }
         }
 
     }

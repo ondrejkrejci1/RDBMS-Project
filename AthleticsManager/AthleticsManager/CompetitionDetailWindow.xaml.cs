@@ -1,4 +1,5 @@
 ﻿using AthleticsManager.Models;
+using AthleticsManager.Models.EnumHelpers;
 using AthleticsManager.Repositories;
 using System.Windows;
 
@@ -15,25 +16,57 @@ namespace AthleticsManager
         public CompetitionDetailWindow(Competition competition)
         {
             InitializeComponent();
-            competition = competition;
+            this.competition = competition;
 
-            // Vyplnit hlavičku
             TxtTitle.Text = competition.Name;
             TxtDate.Text = competition.DateString;
             TxtPlace.Text = competition.Venue;
 
-            //LoadResults();
+            LoadResults();
         }
 
         private void LoadResults()
         {
-            // Tady potřebujeme získat výsledky. 
-            // Protože tabulka Result má jen IDčka, musíme udělat v repozitáři JOIN
-            // a vrátit nějaký "View Model" nebo DTO (Data Transfer Object).
+            try
+            {
+                ResultRepositary resRepo = new ResultRepositary();
 
-            ResultRepositary repo = new ResultRepositary();
-            //DgResults.ItemsSource = repo.GetResultsByCompetition(competition.CompetitionId);
+                var rawResults = resRepo.GetAll().Where(r => r.CompetitionID == competition.CompetitionId).ToList();
+
+                if (!rawResults.Any()) return;
+
+                AthleteRepository athRepo = new AthleteRepository();
+                var allAthletes = athRepo.GetAll();
+
+                List<CompetitionResultView> viewList = rawResults.Select(r =>
+                {
+                    var athlete = allAthletes.FirstOrDefault(a => a.AthleteID == r.AthleteID);
+                    string athleteFullName = athlete != null ? $"{athlete.FirstName} {athlete.LastName}" : "Unknown Athlete";
+
+                    Discipline discEnum = (Discipline)r.DisciplineID;
+
+                    return new CompetitionResultView
+                    {
+                        DisciplineName = discEnum.ToFriendlyString(),
+
+                        AthleteName = athleteFullName,
+
+                        Performance = discEnum.FormatPerformance(r.Performance),
+
+                        Unit = discEnum.GetUnit(),
+
+                        Rank = r.Placement ?? 0
+                    };
+                }).OrderBy(x => x.DisciplineName).ThenBy(x => x.Rank).ToList();
+
+                DgResults.ItemsSource = viewList;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading results: " + ex.Message);
+            }
         }
+    
 
 
         private void Close(object sender, RoutedEventArgs e)
