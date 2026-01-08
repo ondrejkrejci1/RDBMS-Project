@@ -85,7 +85,7 @@ namespace AthleticsManager {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/AthleticsManager;component/competitiondetailwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/AthleticsManager;V1.0.0.0;component/competitiondetailwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\CompetitionDetailWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

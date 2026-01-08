@@ -1,51 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
+  <ItemGroup />
   <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
+    <Compile Update="Views\AddAthleteWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AddClubWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AddCompetitionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ClubDetailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CompetitionDetailWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\DeleteAthleteWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ReportWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\TopPerformancesWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\UpdateAthleteWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AddAthleteWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="AddClubWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="AddCompetitionWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="ClubDetailWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="CompetitionDetailWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="DeleteAthleteWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="UpdateAthleteWindow.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="AddAthleteWindow.xaml">
+    <Page Update="Views\AddAthleteWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AddClubWindow.xaml">
+    <Page Update="Views\AddClubWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AddCompetitionWindow.xaml">
+    <Page Update="Views\AddCompetitionWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="CompetitionDetailWindow.xaml">
+    <Page Update="Views\CompetitionDetailWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="UpdateAthleteWindow.xaml">
+    <Page Update="Views\ReportWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\TopPerformancesWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UpdateAthleteWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

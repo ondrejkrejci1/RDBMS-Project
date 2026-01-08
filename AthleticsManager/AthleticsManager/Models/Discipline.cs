@@ -1,5 +1,10 @@
 ﻿namespace AthleticsManager.Models
 {
+    /// <summary>
+    /// Enumerates the various athletic disciplines supported by the application.
+    /// This includes track events (sprints, middle/long distance, hurdles), field events (jumps, throws),
+    /// relays, race walking, and combined multi-event competitions.
+    /// </summary>
     public enum Discipline
     {
         Run50m = 1,

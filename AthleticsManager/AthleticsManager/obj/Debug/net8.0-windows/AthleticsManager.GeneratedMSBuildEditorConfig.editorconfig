@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AthleticsManager
-build_property.ProjectDir = C:\Users\42060\Downloads\RDBMS-Project-main\RDBMS-Project-main\AthleticsManager\AthleticsManager\
+build_property.ProjectDir = C:\Users\42060\Documents\GitHub\RDBMS-Project\RDBMS-Project\AthleticsManager\AthleticsManager\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

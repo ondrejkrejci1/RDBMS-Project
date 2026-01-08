@@ -1,5 +1,9 @@
 ﻿namespace AthleticsManager.Models
 {
+    /// <summary>
+    /// Represents the administrative regions (kraje) of the Czech Republic.
+    /// These values are used to categorize clubs and athletes based on their geographical location.
+    /// </summary>
     public enum Region
     {
         HlavníměstoPraha = 1,

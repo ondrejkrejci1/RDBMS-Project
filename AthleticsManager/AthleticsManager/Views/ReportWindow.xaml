@@ -1,0 +1,43 @@
+﻿<Window x:Class="AthleticsManager.Views.ReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Club Performance Report" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+            CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Summary report of clubs" Padding="10,5" FontWeight="ExtraBold" FontSize="22" Background="#232528" Foreground="FloralWhite" />
+
+        <DataGrid Grid.Row="1" Name="DgReport" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,15,20,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Club" Binding="{Binding ClubName}" Width="*"/>
+                <DataGridTextColumn Header="Region" Binding="{Binding RegionName}" Width="130"/>
+                <DataGridTextColumn Header="Number of Atletes" Binding="{Binding AthleteCount}" Width="110"/>
+                <DataGridTextColumn Header="Number of Starts" Binding="{Binding TotalEntries}" Width="110"/>
+                <DataGridTextColumn Header="Golden Medals" Binding="{Binding GoldMedals}" FontWeight="Bold" Width="110"/>
+                <DataGridTextColumn Header="Age Range" Binding="{Binding AgeRange}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Row="3" Click="Close" Margin="10,5,20,10" Content="Close" Height="40" FontSize="20" FontWeight="Bold" BorderThickness="0" Style="{StaticResource RoundButtonStyle}" Background="#171738" Foreground="FloralWhite"/>
+    </Grid>
+</Window>

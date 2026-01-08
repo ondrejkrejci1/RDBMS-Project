@@ -1601,11 +1601,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\42060\\Downloads\\RDBMS-Project-main\\RDBMS-Project-main\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
+      "projectUniqueName": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
       "projectName": "AthleticsManager",
-      "projectPath": "C:\\Users\\42060\\Downloads\\RDBMS-Project-main\\RDBMS-Project-main\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
+      "projectPath": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\AthleticsManager.csproj",
       "packagesPath": "C:\\Users\\42060\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\42060\\Downloads\\RDBMS-Project-main\\RDBMS-Project-main\\AthleticsManager\\AthleticsManager\\obj\\",
+      "outputPath": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\42060\\AppData\\Roaming\\NuGet\\NuGet.Config",

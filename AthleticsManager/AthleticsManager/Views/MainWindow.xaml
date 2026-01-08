@@ -1,0 +1,346 @@
+﻿<Window x:Class="AthleticsManager.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AthleticsManager"
+        mc:Ignorable="d"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <Style x:Key="RoundButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#232528">
+            <StackPanel >
+                <TextBlock Text="TRACKMATE" Foreground="White" FontSize="28" FontWeight="ExtraBold" HorizontalAlignment="Center" Margin="0,20,0,40"/>
+
+                <Button Name="BtnDashboard" Content="Overview" Height="40" FontSize="15" FontWeight="Bold" Margin="0,5" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0" Click="MenuButtonClick" Tag="Dashboard"/>
+                <Button Name="BtnCompetitions" Content="Competitions" Height="40" FontSize="15" FontWeight="Bold" Margin="0,5" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0" Click="MenuButtonClick" Tag="Competitions"/>
+                <Button Name="BtnAthletes" Content="Athletes" Height="40" FontSize="15" FontWeight="Bold" Margin="0,5" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0" Click="MenuButtonClick" Tag="Athletes"/>
+                <Button Name="BtnResults" Content="New result" Height="40" FontSize="15" FontWeight="ExtraBold" Margin="0,5" Background="#E74C3C" Foreground="White" BorderThickness="0"  HorizontalContentAlignment="Left" Padding="15,0" Click="MenuButtonClick" Tag="Results"/>
+                <Button Name="BtnClubs" Content="Clubs" Height="40" Margin="0,5" FontSize="15" FontWeight="Bold" Background="Transparent" Foreground="White" BorderThickness="0" HorizontalContentAlignment="Left" Padding="15,0" Click="MenuButtonClick" Tag="Clubs"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Column="1" Margin="20,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="TxtPageTitle" Text="Welcome" FontSize="32" FontWeight="SemiBold" Foreground="#333" Margin="0,0,0,5"/>
+
+            <Grid Grid.Row="1" Name="MainContentGrid">
+
+                <Grid Name="ViewWelcome" Visibility="Visible">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Text="Welcome to TrackMate" FontSize="24" Foreground="Gray" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Select an item from the menu to start." FontSize="16" Foreground="Silver" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Name="ViewOverview" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,10,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="#4F7CAC" CornerRadius="10" Margin="0,0,10,0" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="TOTAL ATHLETES" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                <TextBlock Name="TxtDashAthletesCount" Text="0" Foreground="White" FontSize="36" FontWeight="ExtraBold" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Background="#1ABC9C" CornerRadius="10" Margin="5,0,5,0" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="TOTAL CLUBS" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                <TextBlock Name="TxtDashClubsCount" Text="0" Foreground="White" FontSize="36" FontWeight="ExtraBold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="2" Background="#E67E22" CornerRadius="10" Margin="10,0,0,0" Padding="15">
+                            <StackPanel>
+                                <TextBlock Text="TOTAL Competitions" Foreground="White" FontSize="12" FontWeight="Bold"/>
+                                <TextBlock Name="TxtDashRacesCount" Text="0" Foreground="White" FontSize="36" FontWeight="ExtraBold"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.5*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="White" CornerRadius="10" Margin="0,0,10,0">
+                            <StackPanel>
+                                <TextBlock Text="Data Import" FontSize="18" FontWeight="Bold" Margin="0,0,0,5" Foreground="#2C3E50"/>
+                                <TextBlock Text="Quickly add data from external JSON files." Foreground="Gray" Margin="0,0,0,5"/>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Name="BtnImportAthletes" Content="Import Athletes" Click="ImportAthletes" Style="{StaticResource RoundButtonStyle}" Width="140" FontWeight="Bold" Height="40" Margin="0,0,15,0" Background="#34495E" Foreground="White"/>
+
+                                    <Button Name="BtnImportCompetitions" Content="Import Competitions" Click="ImportCompetitions" Style="{StaticResource RoundButtonStyle}" Width="140" FontWeight="Bold" Height="40" Background="#34495E" Foreground="White"/>
+                                </StackPanel>
+                                <Button Name="BtnImportResults" Content="Import Results" Click="ImportResults" Style="{StaticResource RoundButtonStyle}" Width="140" FontWeight="Bold" Height="40" Background="#34495E" Foreground="White" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Grid.Column="1" Background="#ECF0F1" CornerRadius="10" Padding="20" Margin="10,5,0,0">
+                            <StackPanel>
+                                <TextBlock Text="UPCOMING EVENT" FontSize="12" FontWeight="Bold" Foreground="#7F8C8D"/>
+                                <TextBlock Name="TxtDashNextRaceName" Text="No upcoming race" FontSize="20" FontWeight="Bold" Foreground="#2C3E50" TextWrapping="Wrap" Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
+                                <TextBlock Name="TxtDashNextRaceDate" Text="--.--.----" FontSize="14" Foreground="#E74C3C" Margin="0,5,0,0" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Recent Results Activity" Grid.Row="0" FontSize="16" FontWeight="Bold" Margin="5,0,5,0"/>
+
+                        <DataGrid Name="DgRecentResults" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Background="White">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Athlete" Binding="{Binding AthleteName}" Width="*"/>
+                                <DataGridTextColumn Header="Discipline" Binding="{Binding DisciplineName}" Width="150"/>
+                                <DataGridTextColumn Header="Performance" Binding="{Binding Performance}" Width="100"/>
+                                <DataGridTextColumn Header="Date" Binding="{Binding DateString}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Grid>
+
+                <Grid Name="ViewAthletes" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,10,0,15" HorizontalAlignment="Center">
+                        <Button Name="AddAthlete" Content="Add Athlete" Style="{StaticResource RoundButtonStyle}" Click="OpenAddAthleteWindow" Height="30"  Width="150" Margin="0,0,0,0" Background="#171738" BorderThickness="0" Foreground="GhostWhite" FontSize="14" FontWeight="Bold"/>
+                        <Button Name="UpdateAthlete" Content="Update Athlete" Style="{StaticResource RoundButtonStyle}" Click="OpenUpdateAthleteWindow" Height="30" Width="150" Margin="30,0,0,0" Background="#171738" BorderThickness="0" Foreground="GhostWhite" FontSize="14" FontWeight="Bold"/>
+                        <Button Name="DeleteAthlete" Content="Delete Athlete" Style="{StaticResource RoundButtonStyle}" Click="OpenDeleteAthleteWindow" Height="30"  Width="150" Margin="30,0,0,0" Background="#171738" BorderThickness="0" Foreground="GhostWhite" FontSize="14" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" Name="DgAthletes" AutoGenerateColumns="False" IsReadOnly="True" Background="LightGray" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="First Name" Binding="{Binding FirstName}" Width="*"/>
+                            <DataGridTextColumn Header="Last Name" Binding="{Binding LastName}" Width="*"/>
+
+                            <DataGridTextColumn Header="Birth Date" 
+                            Binding="{Binding BirthDate, StringFormat={}{0:dd.MM.yyyy}}" 
+                            Width="100"/>
+
+                            <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="50"/>
+
+                            <DataGridTextColumn Header="Club" Binding="{Binding ClubName}" Width="150"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                </Grid>
+
+                <Grid Name="ViewNewResult" Visibility="Collapsed">
+                    <StackPanel Margin="0,10" HorizontalAlignment="Center" VerticalAlignment="Top" Width="450">
+
+                        <TextBlock Text="Select Athlete:" Focusable="False"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="CmbResAthlete" Margin="0,0,20,10" Height="30" Width="330" VerticalContentAlignment="Center"/>
+                            <Button x:Name="CreateNewAthlete" Click="OpenAddAthleteWindow" Focusable="False" Width="100" Content="New Athlete" Style="{StaticResource RoundButtonStyle}" Height="30" VerticalAlignment="Top" Background="#2980B9" Foreground="FloralWhite" FontWeight="Bold" FontSize="11"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Select Competition:" Focusable="False"/>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="CmbResCompetition" Margin="0,0,20,10" Height="30" Width="330" VerticalContentAlignment="Center"/>
+                            <Button x:Name="CreateNewCompetition" Click="OpenAddCompetitionWindow" Focusable="False" Width="100" Content="New Competition" Style="{StaticResource RoundButtonStyle}" Height="30" VerticalAlignment="Top" Background="#2980B9" Foreground="FloralWhite" FontWeight="Bold" FontSize="11"/>
+                        </StackPanel>
+
+                        <TextBlock Text="Select Discipline:" Focusable="False"/>
+                        <ComboBox Name="CmbResDiscipline" Margin="0,0,0,10" Height="30" VerticalContentAlignment="Center"/>
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="130"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                                <TextBlock Text="Performance:" Focusable="False"/>
+                                <TextBox Name="TxtResPerformance" Height="30" VerticalContentAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                                <TextBlock Text="Wind (Optional):" Focusable="False"/>
+                                <TextBox Name="TxtResWind" Height="30" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                                <TextBlock Text="Placement:" Focusable="False"/>
+                                <TextBox Name="TxtPlacement" Height="30" VerticalContentAlignment="Center" InputScope="Number"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" Margin="10,0,0,0">
+                                <TextBlock Text="Note (e.g. DNF/Empty):" Focusable="False"/>
+                                <TextBox Name="TxtNote" Height="30" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Button Name="BtnSaveResult" Content="SAVE RESULT" Style="{StaticResource RoundButtonStyle}" Height="40" Margin="0,30,0,0" Background="#171738" Foreground="White" FontWeight="ExtraBold" FontSize="16" Click="SaveResult"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Name="ViewCompetitions" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#CEE4E7" CornerRadius="10" Padding="20" Margin="0,0,0,10" BorderBrush="#0A2463" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="NEAREST EVENT" FontSize="12" FontWeight="Bold" Foreground="#0A2463"/>
+                                <TextBlock Name="TxtNextRaceName" Text="Loading..." FontSize="24" FontWeight="Bold" Foreground="#000E2F" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                <TextBlock Name="TxtNextRaceDate" Text="--.--.----" FontSize="16" Foreground="#7F8C8D" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap" />
+                            </StackPanel>
+
+                            <Button Name="BtnOpenNextRace" Grid.Column="1" Content="  View Details  " Click="OpenNextRace" Style="{StaticResource RoundButtonStyle}" Background="#0D324D" Foreground="FloralWhite" Height="35" Padding="15,5" FontWeight="DemiBold" Margin="0,-5,0,0"/>
+                            
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox Name="TxtCompSearch" Width="200" Height="30" VerticalContentAlignment="Center" TextChanged="CompetitionSearch"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Button Content="  Top Performances  " Click="TopPerformances" Style="{StaticResource RoundButtonStyle}" Background="#E67E22" Foreground="White" Height="35" FontWeight="Bold" Margin="0,0,15,0"/>
+                            <Button Grid.Column="1" Content="  + New Competition  " Click="OpenAddCompetitionWindow" Style="{StaticResource RoundButtonStyle}" Background="#2980B9" Foreground="White" Height="35" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="2" Name="DgCompetitions" AutoGenerateColumns="False" IsReadOnly="True" Background="White" RowHeight="35" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding DateString}" Width="70"/>
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Venue" Binding="{Binding Venue}" Width="*"/>
+
+                            <DataGridTemplateColumn Width="80">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Open" Click="OpenCompetition" Background="#171738" Foreground="White" Style="{StaticResource RoundButtonStyle}" FontSize="11" Margin="5"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+                
+                
+                <Grid Name="ViewClubs" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#CEE4E7" CornerRadius="10" Padding="20" Margin="0,0,0,10" BorderBrush="#0A2463" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="BIGGEST CLUB" FontSize="12" FontWeight="Bold" Foreground="#0A2463"/>
+                                <TextBlock Name="TxtTopClubName" Text="Loading..." FontSize="24" FontWeight="Bold" Foreground="#000E2F" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Total Members: " Foreground="#7F8C8D" FontSize="16"/>
+                                    <TextBlock Name="TxtTopClubCount" Text="0" FontWeight="Bold" Foreground="#7F8C8D" FontSize="16"/>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Button Name="BtnOpenTopClub" Grid.Column="1" Content="  View Details  " Click="OpenTopClub" Style="{StaticResource RoundButtonStyle}" Background="#0D324D" Foreground="White" Height="35" Padding="15,0" VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <Grid Grid.Row="1" Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Search:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox Name="TxtClubSearch" Width="200" Height="30" VerticalContentAlignment="Center" TextChanged="TxtClubSearchTextChanged"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <Button Content="  View Clubs Report  " Click="OpenClubReport" Style="{StaticResource RoundButtonStyle}" Background="#2980B9" Foreground="White" Height="35" Padding="15,0" FontWeight="Bold" Margin="0,0,15,0"/>
+                            <Button Content="  + New Club  " Click="OpenAddClubWindow" Style="{StaticResource RoundButtonStyle}" Background="#2980B9" Foreground="White" Height="35" Padding="15,0" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <DataGrid Grid.Row="2" Name="DgClubs" AutoGenerateColumns="False" IsReadOnly="True" Background="White" RowHeight="35" HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Club Name" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Region" Binding="{Binding RegionName}" Width="150"/>
+
+                            <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Details" Click="OpenClubDetail" Style="{StaticResource RoundButtonStyle}" Background="#34495E" Foreground="White" FontSize="11" Margin="5"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

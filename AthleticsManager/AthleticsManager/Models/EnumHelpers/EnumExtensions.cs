@@ -1,7 +1,17 @@
 ﻿namespace AthleticsManager.Models.EnumHelpers
 {
+    /// <summary>
+    /// Provides extension methods for Discipline and Region enums.
+    /// This class handles the conversion of enum values to user-friendly display strings, 
+    /// retrieval of measurement units, and discipline-specific formatting of performance results.
+    /// </summary>
     public static class EnumExtensions
     {
+        /// <summary>
+        /// Converts a Discipline enum value into a human-readable string representation.
+        /// </summary>
+        /// <param name="discipline">The discipline to convert.</param>
+        /// <returns>A friendly string suitable for UI display (e.g., "100m", "Long Jump").</returns>
         public static string ToFriendlyString(this Discipline discipline)
         {
             switch (discipline)
@@ -70,6 +80,11 @@
             }
         }
 
+        /// <summary>
+        /// Retrieves the measurement unit associated with a specific discipline.
+        /// </summary>
+        /// <param name="discipline">The discipline to retrieve the unit for.</param>
+        /// <returns>Returns "s" for time-based events, "m" for distance-based events, "pts" for multi-events, or an empty string otherwise.</returns>
         public static string GetUnit(this Discipline discipline)
         {
             switch (discipline)
@@ -137,6 +152,11 @@
             }
         }
 
+        /// <summary>
+        /// Converts a Region enum value into its official Czech name string.
+        /// </summary>
+        /// <param name="region">The region to convert.</param>
+        /// <returns>The string name of the region (e.g., "Hlavní město Praha").</returns>
         public static string ToFriendlyString(this Region region)
         {
             switch (region)
@@ -161,6 +181,16 @@
             }
         }
 
+        /// <summary>
+        /// Formats a raw performance value into a standard string representation based on the discipline type.
+        /// <para>
+        /// For middle/long distance running and walks, it formats the value (seconds) into "mm:ss.ff" or "h:mm:ss".
+        /// For jumps and throws, it formats the value to two decimal places.
+        /// </para>
+        /// </summary>
+        /// <param name="discipline">The discipline associated with the performance.</param>
+        /// <param name="value">The raw numerical performance value.</param>
+        /// <returns>A formatted string representation of the performance.</returns>
         public static string FormatPerformance(this Discipline discipline, decimal value)
         {
             string name = discipline.ToString();
