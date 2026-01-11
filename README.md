@@ -25,32 +25,31 @@ For the application to work, it must connect to your MS SQL database.
 
 ## 2. Advanced: Building from Source (CMD)
 
-If you want to use your own database structure, modify the source code, or simply prefer to build the application yourself, follow this process.
+If you want to use your own database structure or build the application from scratch, follow this process.
 
 ### Prerequisites
 * **.NET 8.0 SDK** (must be installed on your machine).
 * **Microsoft SQL Server** (running instance).
 
 ### Step 1: Database Preparation
-Before building the app, ensure your database is ready using the provided scripts.
-
 1. Create a new empty database on your SQL Server.
-2. **Create Structure:** Run the **`databaseScript.sql`** file found in the repository. This script creates all necessary tables (Athlete, Club, Result, etc.), views, and stored procedures.
-3. **Import Static Data:** Run the **`importScript.sql`** file. This is crucial as it populates the `Discipline` and `Region` tables with required fixed IDs (e.g., 50m Run, High Jump, Regions). Without this step, the application will not function correctly.
+2. **Install Database:** Run the **`install_database.sql`** file found in the repository. This script creates the structure and imports static data in a single transaction.
 
-### Step 2: Configuration and Building
+### Step 2: Configuration & Build
 1. Open your terminal (Command Prompt or PowerShell).
 2. Navigate to the project folder where `AthleticsManager.csproj` is located.
    Example: `cd C:\Downloads\AthleticsManager\AthleticsManager`
-3. **Configure Connection:** Before building, open the **`App.config`** file located in this folder using a text editor.
-   * Update the values for `DataSource` (Server Address), `Database` (Name), `Name` (Login), and `Password` to match your local SQL Server instance.
-   * Save the file.
-4. Run the following command to compile and publish the application:
+3. **Edit Configuration:**
+   * Find and open the file named **`App.config`** in this folder using a text editor.
+   * Update the `<appSettings>` section (DataSource, Database, Name, Password) to match your local SQL Server.
+   * Save the changes.
+4. **Build the Application:**
+   Run the following command to compile the project with your configuration:
    
    `dotnet publish -c Release -r win-x64 --self-contained false`
 
 ### Step 3: Running the Application
-1. Once the build finishes, navigate to the output folder:
+1. Navigate to the output folder created by the build process:
    `bin\Release\net8.0-windows\win-x64\publish`
-2. Since you configured the `App.config` in the previous step, the application is ready to use.
-3. Find and run **AthleticsManager.exe**.
+2. Find and run **AthleticsManager.exe**.
+3. The application will launch using the configuration you defined in `App.config` before the build.
