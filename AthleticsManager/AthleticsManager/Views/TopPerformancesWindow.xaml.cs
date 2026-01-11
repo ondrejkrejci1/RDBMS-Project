@@ -1,4 +1,8 @@
 ﻿using AthleticsManager.Repositories;
+using Microsoft.Win32;
+using System.IO;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Windows;
 
 namespace AthleticsManager.Views
@@ -46,6 +50,47 @@ namespace AthleticsManager.Views
         private void Close(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+        }
+
+        private void Download(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ResultRepositary repo = new ResultRepositary();
+                var data = repo.GetTopPerformances();
+
+                if (data == null || data.Count == 0)
+                {
+                    MessageBox.Show("No data to export.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "JSON file (*.json)|*.json",
+                    FileName = "Top100_Performances.json",
+                    Title = "Save Top Performances Export"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    var options = new JsonSerializerOptions
+                    {
+                        WriteIndented = true,
+                        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+                    };
+
+                    string jsonString = JsonSerializer.Serialize(data, options);
+
+                    File.WriteAllText(saveFileDialog.FileName, jsonString);
+
+                    MessageBox.Show("Export successfully completed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Export failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

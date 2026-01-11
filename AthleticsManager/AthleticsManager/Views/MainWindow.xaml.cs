@@ -39,6 +39,7 @@ namespace AthleticsManager.Views
             competitionRepositary = new CompetitionRepositary();
             resultRepositary = new ResultRepositary();
             allCompetitions = new List<Competition>();
+            var connection = DatabaseSingleton.GetInstance();
         }
 
         /// <summary>

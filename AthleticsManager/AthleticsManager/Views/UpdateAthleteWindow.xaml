@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AthleticsManager"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="Update Athlete" Height="260" Width="380">
+        Title="Update Athlete" Height="290" Width="380">
 
     <Window.Resources>
         <Style x:Key="RoundButtonStyle" TargetType="Button">
@@ -28,6 +28,7 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
 
@@ -48,7 +49,7 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="10,5">
                         <TextBlock Text="First Name:" Focusable="False" FontSize="14"/>
-                        <TextBox x:Name="FirstNameTextBox" Width="125" Height="25" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                        <TextBox x:Name="FirstNameTextBox" Width="125" Height="25" HorizontalAlignment="Left" MaxLength="50" VerticalContentAlignment="Center"/>
                     </StackPanel>
                     <StackPanel Margin="0,5,0,5">
                         <TextBlock Text="Update" FontSize="12" Margin="-3,0,0,0"/>
@@ -58,7 +59,7 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Grid.Row="0" Margin="10,0">
                         <TextBlock Text="Last Name:" Focusable="False" FontSize="14"/>
-                        <TextBox x:Name="LastNameTextBox" Width="125" Height="25" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                        <TextBox x:Name="LastNameTextBox" Width="125" Height="25" HorizontalAlignment="Left" MaxLength="50" VerticalContentAlignment="Center"/>
                     </StackPanel>
 
                     <CheckBox x:Name="LastNameUpdate" Margin="10,23"/>
@@ -98,7 +99,8 @@
 
 
         </Grid>
+        <CheckBox Grid.Row="3" x:Name="ActiveCheckBox" Content="Active Athlete" IsChecked="True" FontSize="14" VerticalContentAlignment="Center" HorizontalAlignment="Center"/>
 
-        <Button Grid.Row="3" Click="Confirm" Margin="5,5,10,5" Content="Submit" FontSize="20" FontWeight="DemiBold" BorderThickness="0" Style="{StaticResource RoundButtonStyle}" Background="#171738" Foreground="FloralWhite"/>
+        <Button Grid.Row="4" Click="Confirm" Margin="5,5,10,5" Content="Submit" FontSize="20" FontWeight="DemiBold" BorderThickness="0" Style="{StaticResource RoundButtonStyle}" Background="#171738" Foreground="FloralWhite"/>
     </Grid>
 </Window>

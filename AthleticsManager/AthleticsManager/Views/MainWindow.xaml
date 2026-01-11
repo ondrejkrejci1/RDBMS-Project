@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AthleticsManager"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TRACKMATE" Height="450" Width="800">
 
     <Window.Resources>
         <Style x:Key="RoundButtonStyle" TargetType="Button">

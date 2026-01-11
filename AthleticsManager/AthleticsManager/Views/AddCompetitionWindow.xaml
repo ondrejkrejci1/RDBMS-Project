@@ -40,11 +40,11 @@
             <StackPanel>
                 <StackPanel Margin="10,5">
                     <TextBlock Text="Name:" Focusable="False" FontSize="14"/>
-                    <TextBox x:Name="NameTextBox" Width="150" Height="25" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="NameTextBox" Width="150" Height="25" MaxLength="100" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="0" Margin="10,0">
                     <TextBlock Text="Venue:" Focusable="False" FontSize="14" />
-                    <TextBox x:Name="VenueTextBox" Width="150" Height="25" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="VenueTextBox" Width="150" Height="25" MaxLength="100" HorizontalAlignment="Left" VerticalContentAlignment="Center"/>
                 </StackPanel>
 
             </StackPanel>

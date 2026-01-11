@@ -48,9 +48,27 @@ namespace AthleticsManager.Views
                     return;
                 }
 
-                if (firstNameActive == false && lastNameActive == false && birthDateActive == false && genderActive == false)
+                if (firstNameActive && string.IsNullOrWhiteSpace(FirstNameTextBox.Text))
                 {
-                    MessageBox.Show("Please make a change to update.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("You selected to update the First Name, but the input field is empty.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (lastNameActive && string.IsNullOrWhiteSpace(LastNameTextBox.Text))
+                {
+                    MessageBox.Show("You selected to update the Last Name, but the input field is empty.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (birthDateActive && DateOfBirthSelector.SelectedDate == null)
+                {
+                    MessageBox.Show("You selected to update the Date of Birth, but no date is selected.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                if (genderActive && GenderSelect.SelectedItem == null)
+                {
+                    MessageBox.Show("You selected to update the Gender, but no value is selected.", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -61,7 +79,7 @@ namespace AthleticsManager.Views
                 DateTime? birthDate = null;
                 string gender = null;
 
-                bool? isActive = null;
+                bool? isActive = ActiveCheckBox.IsChecked;
 
                 if (firstNameActive)
                 {

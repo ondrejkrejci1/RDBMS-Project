@@ -1,0 +1,20 @@
+[
+  {
+    "FirstName": "FName",
+    "LastName": "LName",
+    "BirthDate": "2005-01-01T00:00:00",
+    "Gender": "M",
+    "ClubName": "Club",
+    "ClubRegion": "Moravskoslezský kraj",
+    "IsActive": true
+  },
+  {
+    "FirstName": "FName",
+    "LastName": "LName",
+    "BirthDate": "2003-05-20T00:00:00",
+    "Gender": "F",
+    "ClubName": "Club",
+    "ClubRegion": "Hlavní město Praha",
+    "IsActive": true
+  }
+]

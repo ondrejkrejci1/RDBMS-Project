@@ -16,7 +16,6 @@ namespace AthleticsManager
         /// <param name="e">The exit event arguments.</param>
         protected override void OnExit(ExitEventArgs e)
         {
-            // Zde zavoláme metodu pro uzavření spojení
             DatabaseSingleton.CloseConnection();
 
             base.OnExit(e);

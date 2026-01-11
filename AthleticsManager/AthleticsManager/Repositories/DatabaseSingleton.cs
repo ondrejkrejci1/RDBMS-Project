@@ -37,7 +37,7 @@ namespace AthleticsManager.Repositories
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Critical error connecting to DB:\n" + ex.Message, "Database error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+                System.Windows.MessageBox.Show("Critical error connecting to DB.\nPlease check if setting in App.config is correct, or follow the instructions at https://github.com/ondrejkrejci1/RDBMS-Project/blob/main/README.md \n" + ex.Message, "Database error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                 throw;
             }
         }
