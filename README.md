@@ -53,3 +53,10 @@ If you want to use your own database structure or build the application from scr
    `bin\Release\net8.0-windows\win-x64\publish`
 2. Find and run **AthleticsManager.exe**.
 3. The application will launch using the configuration you defined in `App.config` before the build.
+
+## Help & Support
+
+If you run into any issues with the installation or have questions about the implementation, feel free to reach out.
+
+* **Email:** [krejci3@spsejecna.cz](mailto:krejci3@spsejecna.cz)
+* **Issues:** If you find a bug, please open an issue in this repository.
