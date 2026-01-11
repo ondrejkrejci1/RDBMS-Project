@@ -11,7 +11,7 @@ To run the application, you do not need to install Visual Studio. You can simply
 1. Download this repository as a **.zip** file (click the green **Code** button and select **Download ZIP**).
 2. Extract (unzip) the downloaded file to any folder on your computer.
 3. Open the extracted folder and navigate through the following path:
-   `AthleticsManager` -> `bin` -> `Debug` -> `net6.0-windows` (or a similar .NET version folder).
+   `AthleticsManager` -> `bin` -> `Debug` -> `net8.0-windows`
 4. In this folder, find and run the file **AthleticsManager.exe**.
 
 ## Database Configuration
