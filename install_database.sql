@@ -197,6 +197,7 @@ JOIN Discipline D ON R.DisciplineID = D.DisciplineID
 ORDER BY R.Performance DESC;
 GO
 
+-- FIX: Adding missing View 'AllResultsDetail' required for GetAthleteHistory
 CREATE VIEW [dbo].[AllResultsDetail] AS
 SELECT 
     R.ResultID,
@@ -313,11 +314,13 @@ BEGIN
 END;
 GO
 
+-- UPDATED PROCEDURE: Now includes @IsActive
 CREATE PROCEDURE [dbo].[ImportAthlete]
 	@FirstName NVARCHAR(50),
 	@LastName NVARCHAR(50),
 	@BirthDate DATETIME,
 	@Gender CHAR(1),
+	@IsActive BIT,
 	@ClubName NVARCHAR(100),
 	@ClubRegionName NVARCHAR(100)
 AS
@@ -354,15 +357,17 @@ BEGIN
 		INSERT INTO Club (Name, RegionID) VALUES (@ClubName, @RegionID); 
 		SET @ClubID = SCOPE_IDENTITY();
 	END
-	INSERT INTO Athlete (FirstName, LastName, BirthDate, Gender, ClubID)
-	VALUES (@FirstName, @LastName, @BirthDate, @Gender, @ClubID);
+	INSERT INTO Athlete (FirstName, LastName, BirthDate, Gender, IsActive, ClubID)
+	VALUES (@FirstName, @LastName, @BirthDate, @Gender, @IsActive, @ClubID);
 END
 GO
 
+-- UPDATED PROCEDURE: Now includes @Type
 CREATE PROCEDURE [dbo].[ImportCompetition]
 	@Name NVARCHAR(100),
 	@Date DATETIME,
-	@Venue NVARCHAR(100)
+	@Venue NVARCHAR(100),
+	@Type NVARCHAR(100)
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -375,7 +380,7 @@ BEGIN
 	END
 	
     INSERT INTO Competition (Name, Date, Venue, Type)
-	VALUES (@Name, @Date, @Venue, 'OUTDOOR');
+	VALUES (@Name, @Date, @Venue, @Type);
 END
 GO
 
