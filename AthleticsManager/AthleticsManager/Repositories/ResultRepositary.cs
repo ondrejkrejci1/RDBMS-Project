@@ -214,7 +214,6 @@ namespace AthleticsManager.Repositories
             catch (Exception ex)
             {
                 MessageBox.Show($"Critical Database Error in ResultRepositary.GetTopPerformances:\n{ex.Message}\n\nThe application will now close.", "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown();
                 return null;
             }
         }

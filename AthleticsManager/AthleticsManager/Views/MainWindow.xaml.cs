@@ -713,8 +713,9 @@ namespace AthleticsManager.Views
                                     string name = element.GetProperty("Name").GetString();
                                     DateTime date = element.GetProperty("Date").GetDateTime();
                                     string venue = element.GetProperty("Venue").GetString();
+                                    string type = element.GetProperty("Type").GetString();
 
-                                    repo.ImportCompetition(name, date, venue);
+                                    repo.ImportCompetition(name, date, venue, type);
 
                                     successCount++;
                                 }
@@ -727,13 +728,13 @@ namespace AthleticsManager.Views
                         }
                     }
 
-                    MessageBox.Show($"Import dokončen.\nÚspěšně: {successCount}\nPřeskočeno/Chyby: {errorCount}");
+                    MessageBox.Show($"Import complete.\nSuccessfully: {successCount}\nSkip/Errors: {errorCount}");
 
                     LoadOverviewData();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Kritická chyba souboru: " + ex.Message);
+                    MessageBox.Show("Critical file error: " + ex.Message);
                 }
             }
         }

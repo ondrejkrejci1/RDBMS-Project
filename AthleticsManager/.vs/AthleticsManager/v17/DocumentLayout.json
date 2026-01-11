@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\views\\topperformanceswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\views\\topperformanceswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\repositories\\competitionrepositary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\repositories\\competitionrepositary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\views\\topperformanceswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\views\\topperformanceswindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\repositories\\athleterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|solutionrelative:athleticsmanager\\repositories\\athleterepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{71EC975A-CB0D-4A2B-B790-7F1E519216CF}|AthleticsManager\\AthleticsManager.csproj|c:\\users\\42060\\documents\\github\\rdbms-project\\rdbms-project\\athleticsmanager\\athleticsmanager\\repositories\\resultrepositary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -22,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,40 +38,66 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ResultRepositary.cs",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\ResultRepositary.cs",
-              "RelativeDocumentMoniker": "AthleticsManager\\Repositories\\ResultRepositary.cs",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\ResultRepositary.cs",
-              "RelativeToolTip": "AthleticsManager\\Repositories\\ResultRepositary.cs",
-              "ViewState": "AgIAALAAAAAAAAAAAAAwwLcAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\Views\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\MainWindow.xaml.cs",
+              "RelativeToolTip": "AthleticsManager\\Views\\MainWindow.xaml.cs",
+              "ViewState": "AgIAALQCAAAAAAAAAAAUwNoCAABiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T19:05:24.053Z",
+              "WhenOpened": "2026-01-11T19:52:20.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "AthleticsManager\\Views\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\MainWindow.xaml",
+              "RelativeToolTip": "AthleticsManager\\Views\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-11T19:58:04.78Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "TopPerformancesWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\TopPerformancesWindow.xaml.cs",
-              "RelativeDocumentMoniker": "AthleticsManager\\Views\\TopPerformancesWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\TopPerformancesWindow.xaml.cs",
-              "RelativeToolTip": "AthleticsManager\\Views\\TopPerformancesWindow.xaml.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAwEwAAAA7AAAAAAAAAA==",
+              "Title": "CompetitionRepositary.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\CompetitionRepositary.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\Repositories\\CompetitionRepositary.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\CompetitionRepositary.cs",
+              "RelativeToolTip": "AthleticsManager\\Repositories\\CompetitionRepositary.cs",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAowHcAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-11T19:04:09.412Z",
+              "WhenOpened": "2026-01-11T19:56:17.423Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TopPerformancesWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\TopPerformancesWindow.xaml",
-              "RelativeDocumentMoniker": "AthleticsManager\\Views\\TopPerformancesWindow.xaml",
-              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Views\\TopPerformancesWindow.xaml",
-              "RelativeToolTip": "AthleticsManager\\Views\\TopPerformancesWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-01-11T19:00:20.263Z",
+              "DocumentIndex": 3,
+              "Title": "AthleteRepository.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\AthleteRepository.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\Repositories\\AthleteRepository.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\AthleteRepository.cs",
+              "RelativeToolTip": "AthleticsManager\\Repositories\\AthleteRepository.cs",
+              "ViewState": "AgIAAO4AAAAAAAAAAAArwBIBAADPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-11T19:55:57.497Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ResultRepositary.cs",
+              "DocumentMoniker": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\ResultRepositary.cs",
+              "RelativeDocumentMoniker": "AthleticsManager\\Repositories\\ResultRepositary.cs",
+              "ToolTip": "C:\\Users\\42060\\Documents\\GitHub\\RDBMS-Project\\RDBMS-Project\\AthleticsManager\\AthleticsManager\\Repositories\\ResultRepositary.cs",
+              "RelativeToolTip": "AthleticsManager\\Repositories\\ResultRepositary.cs",
+              "ViewState": "AgIAALAAAAAAAAAAAAAwwNcAAADTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-11T19:05:24.053Z",
               "EditorCaption": ""
             }
           ]

@@ -114,7 +114,7 @@ namespace AthleticsManager.Repositories
         /// <param name="name">The name of the competition.</param>
         /// <param name="date">The date of the event.</param>
         /// <param name="venue">The location where the competition takes place.</param>
-        public void ImportCompetition(string name, DateTime date, string venue)
+        public void ImportCompetition(string name, DateTime date, string venue, string type)
         {
             try
             {
@@ -125,13 +125,13 @@ namespace AthleticsManager.Repositories
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Date", date);
                     command.Parameters.AddWithValue("@Venue", venue);
+                    command.Parameters.AddWithValue("@Type", type);
                     command.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Critical Database Error in CompetitionRepositary.ImportCompetition:\n{ex.Message}\n\nThe application will now close.", "Critical Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                Application.Current.Shutdown();
             }
         }
 
